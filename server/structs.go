@@ -11,3 +11,11 @@ type Location struct {
 	Country     string      `json:"country,omitempty"`
 	Geolocation Coordinates `json:"location,omitempty"`
 }
+
+type Status struct {
+	GutendexAPI  int     `json:"gutendexapi"`
+	LanguageAPI  int     `json:"languageapi"`
+	CountriesAPI int     `json:"countriesapi"`
+	Version      string  `json:"version"`
+	Uptime       float64 `json:"uptime"`
+}
