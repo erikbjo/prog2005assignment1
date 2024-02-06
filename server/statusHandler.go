@@ -8,6 +8,10 @@ import (
 	"time"
 )
 
+var client = &http.Client{
+	Timeout: 1 * time.Second,
+}
+
 func StatusHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
@@ -25,10 +29,10 @@ func handleStatusGetRequest(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("content-type", "application/json")
 
 	currentStatus := Status{
-		GutendexAPI:  getStatusCode(GUTENDEX_API_REMOTE),
-		LanguageAPI:  getStatusCode(LANGUAGE_API_REMOTE),
-		CountriesAPI: getStatusCode(COUNTRIES_API_REMOTE),
-		Version:      "v1",
+		GutendexAPI:  getStatusCode(GUTENDEX_API_REMOTE, w),
+		LanguageAPI:  getStatusCode(LANGUAGE_API_REMOTE, w),
+		CountriesAPI: getStatusCode(COUNTRIES_API_REMOTE, w),
+		Version:      VERSION,
 		Uptime:       math.Round(time.Since(StartTime).Seconds()),
 	}
 
@@ -46,19 +50,20 @@ func handleStatusGetRequest(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getStatusCode(url string) int {
-	response, err := http.Get(url)
+func getStatusCode(url string, w http.ResponseWriter) int {
+	defer client.CloseIdleConnections()
+	response, err := client.Get(url)
 	if err != nil {
 		log.Println("Error making request to external API: " + err.Error())
+		return http.StatusServiceUnavailable
+	}
+
+	err2 := response.Body.Close()
+	if err2 != nil {
+		log.Println("Error closing response body: " + err2.Error())
 		return http.StatusInternalServerError
 	}
 
 	status := response.StatusCode
-
-	err1 := response.Body.Close()
-	if err1 != nil {
-		log.Println("Failed to close response body: " + err1.Error())
-	}
-
 	return status
 }

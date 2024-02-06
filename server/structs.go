@@ -19,3 +19,18 @@ type Status struct {
 	Version      string  `json:"version"`
 	Uptime       float64 `json:"uptime"`
 }
+
+type BookCount struct {
+	Language string  `json:"language"`
+	Books    int     `json:"books"`
+	Authors  int     `json:"authors"`
+	Fraction float64 `json:"fraction"`
+}
+
+type Readership struct {
+	Country    string `json:"country"`
+	Isocode    string `json:"isocode"`
+	Books      int    `json:"books"`
+	Authors    int    `json:"authors"`
+	Readership int    `json:"readership"`
+}
