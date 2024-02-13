@@ -9,6 +9,10 @@ import (
 
 var StartTime time.Time
 
+var client = &http.Client{
+	Timeout: 3 * time.Second,
+}
+
 func Start() {
 	port := os.Getenv("PORT")
 	if port == "" {

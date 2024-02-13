@@ -8,10 +8,6 @@ import (
 	"time"
 )
 
-var client = &http.Client{
-	Timeout: 1 * time.Second,
-}
-
 func StatusHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
@@ -64,6 +60,5 @@ func getStatusCode(url string, w http.ResponseWriter) int {
 		return http.StatusInternalServerError
 	}
 
-	status := response.StatusCode
-	return status
+	return response.StatusCode
 }

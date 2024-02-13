@@ -34,3 +34,21 @@ type Readership struct {
 	Authors    int    `json:"authors"`
 	Readership int    `json:"readership"`
 }
+
+type Book struct {
+	Id        int      `json:"id"`
+	Title     string   `json:"title"`
+	Authors   []Person `json:"authors"`
+	Languages []string `json:"languages"`
+}
+
+type Person struct {
+	BirthYear int    `json:"birth_year"`
+	DeathYear int    `json:"death_year"`
+	Name      string `json:"name"`
+}
+
+type GutendexResult struct {
+	Count   int    `json:"count"`
+	Results []Book `json:"results"`
+}
