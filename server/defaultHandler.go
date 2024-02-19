@@ -2,9 +2,15 @@ package server
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
+// DefaultHandler
+/*
+DefaultHandler is the default handler for the server. It returns a message to the client, informing them that the server
+does not provide any functionality on root path level.
+*/
 func DefaultHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("content-type", "text/html")
 
@@ -19,6 +25,7 @@ func DefaultHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Deal with error if any
 	if err != nil {
+		log.Println("Error when returning output: " + err.Error())
 		http.Error(w, "Error when returning output", http.StatusInternalServerError)
 	}
 

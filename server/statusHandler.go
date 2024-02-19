@@ -8,6 +8,10 @@ import (
 	"time"
 )
 
+// StatusHandler
+/*
+Handle requests for /status
+*/
 func StatusHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
@@ -21,13 +25,16 @@ func StatusHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+/*
+Handle GET request for /status
+*/
 func handleStatusGetRequest(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("content-type", "application/json")
 
 	currentStatus := Status{
-		GutendexAPI:  getStatusCode(GUTENDEX_API_REMOTE, w),
-		LanguageAPI:  getStatusCode(LANGUAGE_API_REMOTE, w),
-		CountriesAPI: getStatusCode(COUNTRIES_API_REMOTE, w),
+		GutendexAPI:  getStatusCode(GUTENDEX_API, w),
+		LanguageAPI:  getStatusCode(LANGUAGE_API, w),
+		CountriesAPI: getStatusCode(COUNTRIES_API, w),
 		Version:      VERSION,
 		Uptime:       math.Round(time.Since(StartTime).Seconds()),
 	}
@@ -46,6 +53,9 @@ func handleStatusGetRequest(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+/*
+Get status code from external API. Return 503 if API is not reachable.
+*/
 func getStatusCode(url string, w http.ResponseWriter) int {
 	defer client.CloseIdleConnections()
 	response, err := client.Get(url)

@@ -13,6 +13,10 @@ var client = &http.Client{
 	Timeout: 3 * time.Second,
 }
 
+// Start
+/*
+Start the server on the port specified in the environment variable PORT. If PORT is not set, the default port 8080 is used.
+*/
 func Start() {
 	port := os.Getenv("PORT")
 	if port == "" {

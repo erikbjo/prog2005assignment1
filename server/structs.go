@@ -49,6 +49,8 @@ type Person struct {
 }
 
 type GutendexResult struct {
-	Count   int    `json:"count"`
-	Results []Book `json:"results"`
+	Count    int    `json:"count"`
+	Results  []Book `json:"results"`
+	Next     string `json:"next"`
+	Previous string `json:"previous"`
 }

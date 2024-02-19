@@ -4,9 +4,15 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"net/url"
 	"strconv"
+	"strings"
 )
 
+// BookCountHandler
+/*
+Handle requests for /bookCount
+*/
 func BookCountHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
@@ -20,31 +26,64 @@ func BookCountHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+/*
+Handle GET request for /bookCount
+*/
 func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 	defer client.CloseIdleConnections()
 	w.Header().Add("content-type", "application/json")
 
 	// Uses /?language={:two_letter_language_code+}/
 	languageQuery := r.URL.Query().Get("language")
-	res := makeGutendexRequest(w, r, languageQuery)
-
-	mp := decodeJSON(w, res)
-	output := prettyPrintJSON(w, mp)
-
-	totalBooks := getTotalBookCount(w)
-	booksOfLanguage := int(mp["count"].(float64))
-	fraction := float64(booksOfLanguage) / float64(totalBooks)
-	uniqueAuthors := getUniqueAuthors(w, output)
-
-	bookCount := BookCount{
-		Language: languageQuery,
-		Books:    booksOfLanguage,
-		Authors:  uniqueAuthors,
-		Fraction: fraction,
+	if languageQuery == "" {
+		log.Println("No language specified.")
+		http.Error(w, "No language specified.", http.StatusBadRequest)
+		return
 	}
 
+	// Split languageQuery into individual languages
+	languageQueries := strings.Split(languageQuery, ",")
+
+	responses := make([]*http.Response, len(languageQueries))
+	for i, language := range languageQueries {
+		responses[i] = makeGutendexRequest(w, r, language)
+	}
+
+	totalBooks := getTotalBookCount(w)
+
+	// Array of bookCount structs
+	bookCounts := make([]BookCount, len(languageQueries))
+	for i, res := range responses {
+		mp := decodeJSON(w, res)
+
+		if mp.Count == 0 {
+			log.Println("No books found for language: " + languageQueries[i])
+			continue
+		}
+
+		mp = recursiveGutendexRequest(w, mp)
+
+		output := prettyPrintJSON(w, mp)
+
+		booksOfLanguage := mp.Count
+		fraction := float64(booksOfLanguage) / float64(totalBooks)
+		uniqueAuthors := getUniqueAuthors(w, output)
+
+		bookCount := BookCount{
+			Language: languageQueries[i],
+			Books:    booksOfLanguage,
+			Authors:  uniqueAuthors,
+			Fraction: fraction,
+		}
+
+		bookCounts[i] = bookCount
+	}
+
+	// Remove empty elements from bookCounts
+	bookCounts = removeEmptyElements(bookCounts)
+
 	// Marshal and write to response
-	marshaledBookCount, err := json.MarshalIndent(bookCount, "", "    ")
+	marshaledBookCount, err := json.MarshalIndent(bookCounts, "", "    ")
 	if err != nil {
 		log.Println("Error during JSON encoding: " + err.Error())
 		http.Error(w, "Error during JSON encoding.", http.StatusInternalServerError)
@@ -59,21 +98,73 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func decodeJSON(w http.ResponseWriter, res *http.Response) map[string]interface{} {
-	decoder := json.NewDecoder(res.Body)
-	mp := map[string]interface{}{}
+func recursiveGutendexRequest(w http.ResponseWriter, mp GutendexResult) GutendexResult {
+	for mp.Next != "null" && mp.Next != "" {
+		_, err := url.ParseRequestURI(mp.Next)
+		if err != nil {
+			log.Println("Invalid URL:", err.Error())
+			http.Error(w, "Invalid URL", http.StatusInternalServerError)
+			return mp
+		}
 
-	err := decoder.Decode(&mp)
-	if err != nil {
-		log.Println("Error during decoding: " + err.Error())
-		http.Error(w, "Error during decoding", http.StatusBadRequest)
-		return nil
+		res, err := client.Get(mp.Next)
+		if err != nil {
+			log.Println("Error in response:", err.Error())
+			http.Error(w, "Error in response", http.StatusInternalServerError)
+			return mp
+		}
+
+		decoder := json.NewDecoder(res.Body)
+		var newMp GutendexResult
+		err = decoder.Decode(&newMp)
+		if err != nil {
+			log.Println("Error during decoding: " + err.Error())
+			http.Error(w, "Error during decoding", http.StatusBadRequest)
+		}
+
+		mp.Results = append(mp.Results, newMp.Results...)
+		mp.Next = newMp.Next
+		mp.Previous = newMp.Previous
+
+		log.Println("Current count: " + strconv.Itoa(len(mp.Results)))
 	}
 
 	return mp
 }
 
-func prettyPrintJSON(w http.ResponseWriter, mp map[string]interface{}) []byte {
+/*
+Remove empty elements from bookCounts, i.e. elements with language="", books=0, authors=0, fraction=0
+*/
+func removeEmptyElements(counts []BookCount) []BookCount {
+	var newCounts []BookCount
+	for _, count := range counts {
+		if count.Language != "" && count.Books != 0 && count.Authors != 0 && count.Fraction != 0 {
+			newCounts = append(newCounts, count)
+		}
+	}
+	return newCounts
+}
+
+/*
+Decode JSON and return as map
+*/
+func decodeJSON(w http.ResponseWriter, res *http.Response) GutendexResult {
+	decoder := json.NewDecoder(res.Body)
+	mp := GutendexResult{}
+
+	err := decoder.Decode(&mp)
+	if err != nil {
+		log.Println("Error during decoding: " + err.Error())
+		http.Error(w, "Error during decoding", http.StatusBadRequest)
+	}
+
+	return mp
+}
+
+/*
+Pretty print JSON and return as byte array
+*/
+func prettyPrintJSON(w http.ResponseWriter, mp GutendexResult) []byte {
 	output, err := json.MarshalIndent(mp, "", "  ")
 	if err != nil {
 		log.Println("Error during pretty printing: " + err.Error())
@@ -84,8 +175,11 @@ func prettyPrintJSON(w http.ResponseWriter, mp map[string]interface{}) []byte {
 	return output
 }
 
+/*
+Get total book count from Gutendex API
+*/
 func getTotalBookCount(w http.ResponseWriter) int {
-	r, err1 := http.NewRequest(http.MethodGet, GUTENDEX_API_REMOTE, nil)
+	r, err1 := http.NewRequest(http.MethodGet, GUTENDEX_API, nil)
 	if err1 != nil {
 		log.Println("Error in creating request:", err1.Error())
 		http.Error(w, "Error in creating request", http.StatusInternalServerError)
@@ -99,11 +193,14 @@ func getTotalBookCount(w http.ResponseWriter) int {
 	}
 
 	mp := decodeJSON(w, res)
-	bookCount := int(mp["count"].(float64))
+	bookCount := mp.Count
 
 	return bookCount
 }
 
+/*
+Get unique authors from Gutendex API. Authors are distinguished by name and birth and death year.
+*/
 func getUniqueAuthors(w http.ResponseWriter, output []byte) int {
 	var result GutendexResult
 	err := json.Unmarshal(output, &result)
@@ -123,9 +220,12 @@ func getUniqueAuthors(w http.ResponseWriter, output []byte) int {
 	return len(uniqueAuthors)
 }
 
+/*
+Make request to Gutendex API. Takes languageQuery as parameter, which is a two-letter language code. Returns response.
+*/
 func makeGutendexRequest(w http.ResponseWriter, r *http.Request, languageQuery string) *http.Response {
 	// Create new request
-	r, err1 := http.NewRequest(http.MethodGet, GUTENDEX_API_REMOTE+"?languages="+languageQuery, nil)
+	r, err1 := http.NewRequest(http.MethodGet, GUTENDEX_API+"?languages="+languageQuery, nil)
 	if err1 != nil {
 		log.Println("Error in creating request:", err1.Error())
 		http.Error(w, "Error in creating request", http.StatusInternalServerError)
