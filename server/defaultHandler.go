@@ -16,9 +16,9 @@ func DefaultHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Offer information for redirection to paths
 	output := "This service does not provide any functionality on root path level. <br> Please use paths: " +
-		"<ul><li><a href=\"" + READERSHIP_PATH + "\">" + READERSHIP_PATH + "</a></li>" +
-		"<li><a href=\"" + BOOK_COUNT_PATH + "\">" + BOOK_COUNT_PATH + "</a></li>" +
-		"<li><a href=\"" + STATUS_PATH + "\">" + STATUS_PATH + "</a></li></ul>"
+		"<ul><li><a href=\"" + ReadershipPath + "\">" + ReadershipPath + "</a></li>" +
+		"<li><a href=\"" + BookCountPath + "\">" + BookCountPath + "</a></li>" +
+		"<li><a href=\"" + StatusPath + "\">" + StatusPath + "</a></li></ul>"
 
 	// Write output to client
 	_, err := fmt.Fprintf(w, "%v", output)

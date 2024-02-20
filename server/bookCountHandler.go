@@ -9,6 +9,8 @@ import (
 	"strings"
 )
 
+const CurrentGutendexApi = GutendexApiRemote
+
 // BookCountHandler
 /*
 Handle requests for /bookCount
@@ -99,7 +101,7 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 }
 
 func recursiveGutendexRequest(w http.ResponseWriter, mp GutendexResult) GutendexResult {
-	for mp.Next != "null" && mp.Next != "" {
+	for mp.Next != "" {
 		_, err := url.ParseRequestURI(mp.Next)
 		if err != nil {
 			log.Println("Invalid URL:", err.Error())
@@ -179,7 +181,7 @@ func prettyPrintJSON(w http.ResponseWriter, mp GutendexResult) []byte {
 Get total book count from Gutendex API
 */
 func getTotalBookCount(w http.ResponseWriter) int {
-	r, err1 := http.NewRequest(http.MethodGet, GUTENDEX_API, nil)
+	r, err1 := http.NewRequest(http.MethodGet, CurrentGutendexApi, nil)
 	if err1 != nil {
 		log.Println("Error in creating request:", err1.Error())
 		http.Error(w, "Error in creating request", http.StatusInternalServerError)
@@ -225,7 +227,7 @@ Make request to Gutendex API. Takes languageQuery as parameter, which is a two-l
 */
 func makeGutendexRequest(w http.ResponseWriter, r *http.Request, languageQuery string) *http.Response {
 	// Create new request
-	r, err1 := http.NewRequest(http.MethodGet, GUTENDEX_API+"?languages="+languageQuery, nil)
+	r, err1 := http.NewRequest(http.MethodGet, CurrentGutendexApi+"?languages="+languageQuery, nil)
 	if err1 != nil {
 		log.Println("Error in creating request:", err1.Error())
 		http.Error(w, "Error in creating request", http.StatusInternalServerError)
@@ -242,4 +244,17 @@ func makeGutendexRequest(w http.ResponseWriter, r *http.Request, languageQuery s
 	}
 
 	return res
+}
+
+func GetAuthorsAndBooks(w http.ResponseWriter, twoLetterLanguageCode string) (int, int) {
+	res := makeGutendexRequest(w, nil, twoLetterLanguageCode)
+	mp := decodeJSON(w, res)
+
+	mp = recursiveGutendexRequest(w, mp)
+
+	output := prettyPrintJSON(w, mp)
+
+	uniqueAuthors := getUniqueAuthors(w, output)
+
+	return uniqueAuthors, mp.Count
 }

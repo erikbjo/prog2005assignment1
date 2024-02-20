@@ -32,9 +32,9 @@ func handleStatusGetRequest(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("content-type", "application/json")
 
 	currentStatus := Status{
-		GutendexAPI:  getStatusCode(GUTENDEX_API, w),
-		LanguageAPI:  getStatusCode(LANGUAGE_API, w),
-		CountriesAPI: getStatusCode(COUNTRIES_API, w),
+		GutendexAPI:  getStatusCode(GutendexApi, w),
+		LanguageAPI:  getStatusCode(LanguageApi, w),
+		CountriesAPI: getStatusCode(RestCountriesApi, w),
 		Version:      VERSION,
 		Uptime:       math.Round(time.Since(StartTime).Seconds()),
 	}

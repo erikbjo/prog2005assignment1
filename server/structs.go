@@ -1,17 +1,5 @@
 package server
 
-type Coordinates struct {
-	Latitude  float64 `json:"lat,omitempty"`
-	Longitude float64 `json:"lon,omitempty"`
-}
-
-type Location struct {
-	Name        string      `json:"name"`
-	Postcode    string      `json:"code"`
-	Country     string      `json:"country,omitempty"`
-	Geolocation Coordinates `json:"location,omitempty"`
-}
-
 type Status struct {
 	GutendexAPI  int     `json:"gutendexapi"`
 	LanguageAPI  int     `json:"languageapi"`
@@ -53,4 +41,17 @@ type GutendexResult struct {
 	Results  []Book `json:"results"`
 	Next     string `json:"next"`
 	Previous string `json:"previous"`
+}
+
+type Country struct {
+	Iso31661Alpha3 string `json:"ISO3166_1_Alpha_3"`
+	Iso31661Alpha2 string `json:"ISO3166_1_Alpha_2"`
+	OfficialName   string `json:"Official_Name"`
+	RegionName     string `json:"Region_Name"`
+	SubRegionName  string `json:"Sub_Region_Name"`
+	Language       string `json:"Language"`
+}
+
+type CountryFromRestCountries struct {
+	Population int `json:"population"`
 }

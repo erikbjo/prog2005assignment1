@@ -25,10 +25,10 @@ func Start() {
 	}
 
 	// Set up handler endpoints
-	http.HandleFunc(DEFAULT_PATH, DefaultHandler)
-	http.HandleFunc(STATUS_PATH, StatusHandler)
-	http.HandleFunc(READERSHIP_PATH, ReadershipHandler)
-	http.HandleFunc(BOOK_COUNT_PATH, BookCountHandler)
+	http.HandleFunc(DefaultPath, DefaultHandler)
+	http.HandleFunc(StatusPath, StatusHandler)
+	http.HandleFunc(ReadershipPath, ReadershipHandler)
+	http.HandleFunc(BookCountPath, BookCountHandler)
 
 	StartTime = time.Now()
 
