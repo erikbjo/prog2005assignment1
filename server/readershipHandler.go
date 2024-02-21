@@ -31,43 +31,49 @@ func handleReadershipGetRequest(w http.ResponseWriter, r *http.Request) {
 		Get readership (inhabitants) from API
 	*/
 
-	/*
-		return the number of potential readers for books in a given language, i.e., the population per country in which that language is official
-	*/
-
 	// Get two_letter_language_code from request
 	cutQuery, _ := strings.CutPrefix(r.URL.Path, ReadershipPath)
-	if len(cutQuery) != 2 || !unicode.IsLetter(rune(cutQuery[0])) || !unicode.IsLetter(rune(cutQuery[1])) {
+
+	// Split and get first
+	twoLetterLanguageCode := strings.Split(cutQuery, "/")[0]
+
+	if len(twoLetterLanguageCode) != 2 || !unicode.IsLetter(rune(twoLetterLanguageCode[0])) || !unicode.IsLetter(rune(twoLetterLanguageCode[1])) {
 		log.Println("Invalid request.")
 		http.Error(w, "Invalid request.", http.StatusBadRequest)
 		return
 	}
 
-	// Split and get first
-	twoLetterLanguageCode := strings.Split(cutQuery, "/")[0]
-	log.Println("two_letter_language_code: " + twoLetterLanguageCode)
-
-	limit := r.URL.Query().Get("limit")
-	if limit == "" {
-		log.Println("No limit specified.")
+	var limit int
+	limitStr := r.URL.Query().Get("limit")
+	if limitStr == "" {
+		limit = 0
+	} else {
+		err := error(nil)
+		limit, err = strconv.Atoi(limitStr)
+		if err != nil || limit < 1 {
+			log.Println("Invalid limit specified.")
+			http.Error(w, "Invalid limit specified. Please specify a positive integer.", http.StatusBadRequest)
+			return
+		}
+		log.Println("Limit: " + strconv.Itoa(limit))
 	}
 
 	// Get authors and books from bookCountHandler
 	authors, books := GetAuthorsAndBooks(w, twoLetterLanguageCode)
-	log.Println("Authors: " + strconv.Itoa(authors))
-	log.Println("Books: " + strconv.Itoa(books))
 
 	// Get country name from API
 	countries := getCountriesWithLanguageWithTwoLetterLanguageCode(w, twoLetterLanguageCode)
-	log.Println("Countries length: " + strconv.Itoa(len(countries)))
 
 	// Loop through countries and get readership (inhabitants) from API
 	var readerships []Readership
 
-	for _, country := range countries {
-		log.Println("Country: " + country.OfficialName)
+	for i, country := range countries {
+		// If limit is set and reached, break
+		if limit > 0 && i >= limit {
+			break
+		}
 
-		readership := Readership{
+		newReadership := Readership{
 			Country:    country.OfficialName,
 			Isocode:    country.Iso31661Alpha2,
 			Books:      books,
@@ -75,7 +81,7 @@ func handleReadershipGetRequest(w http.ResponseWriter, r *http.Request) {
 			Readership: getReadership(w, country),
 		}
 
-		readerships = append(readerships, readership)
+		readerships = append(readerships, newReadership)
 	}
 
 	// Return JSON
@@ -96,23 +102,17 @@ func handleReadershipGetRequest(w http.ResponseWriter, r *http.Request) {
 
 func getReadership(w http.ResponseWriter, country Country) int {
 	defer client.CloseIdleConnections()
-	response, err := client.Get(RestCountriesApi + "/alpha/" + country.Iso31661Alpha3)
+	response, err := client.Get(CurrentRestCountriesApi + "/alpha/" + country.Iso31661Alpha3)
 	if err != nil {
 		log.Println("Error when trying to get readership: " + err.Error())
 		http.Error(w, "Error when trying to get readership", http.StatusInternalServerError)
 	}
-
-	log.Println("Response from countries API: " + response.Status)
 
 	var countries []CountryFromRestCountries
 	err = json.NewDecoder(response.Body).Decode(&countries)
 	if err != nil {
 		log.Println("Error when decoding JSON: " + err.Error())
 		http.Error(w, "Error when decoding JSON", http.StatusInternalServerError)
-	}
-
-	if len(countries) > 1 {
-		log.Println("\t--- More than one country found ---")
 	}
 
 	return countries[0].Population
@@ -125,9 +125,6 @@ func getCountriesWithLanguageWithTwoLetterLanguageCode(w http.ResponseWriter, co
 		log.Println("Error when trying to get countries with language: " + err.Error())
 		http.Error(w, "Error when trying to get countries with language", http.StatusInternalServerError)
 	}
-
-	log.Println("Response from language API: " + response.Status)
-	log.Println(response.Body)
 
 	var countries []Country
 	err = json.NewDecoder(response.Body).Decode(&countries)

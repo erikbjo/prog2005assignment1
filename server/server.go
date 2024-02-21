@@ -30,6 +30,7 @@ func Start() {
 	http.HandleFunc(ReadershipPath, ReadershipHandler)
 	http.HandleFunc(BookCountPath, BookCountHandler)
 
+	// Set start time
 	StartTime = time.Now()
 
 	// Start server

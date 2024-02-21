@@ -9,8 +9,6 @@ import (
 	"strings"
 )
 
-const CurrentGutendexApi = GutendexApiRemote
-
 // BookCountHandler
 /*
 Handle requests for /bookCount

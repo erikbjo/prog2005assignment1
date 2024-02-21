@@ -32,9 +32,9 @@ func handleStatusGetRequest(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("content-type", "application/json")
 
 	currentStatus := Status{
-		GutendexAPI:  getStatusCode(GutendexApi, w),
+		GutendexAPI:  getStatusCode(CurrentGutendexApi, w),
 		LanguageAPI:  getStatusCode(LanguageApi, w),
-		CountriesAPI: getStatusCode(RestCountriesApi, w),
+		CountriesAPI: getStatusCode(CurrentRestCountriesApi, w),
 		Version:      VERSION,
 		Uptime:       math.Round(time.Since(StartTime).Seconds()),
 	}
@@ -58,6 +58,12 @@ Get status code from external API. Return 503 if API is not reachable.
 */
 func getStatusCode(url string, w http.ResponseWriter) int {
 	defer client.CloseIdleConnections()
+
+	// Add language to language API, would get status 204 if not
+	if url == LanguageApi {
+		url = url + "/en"
+	}
+
 	response, err := client.Get(url)
 	if err != nil {
 		log.Println("Error making request to external API: " + err.Error())
