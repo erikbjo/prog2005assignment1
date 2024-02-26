@@ -59,9 +59,11 @@ Get status code from external API. Return 503 if API is not reachable.
 func getStatusCode(url string, w http.ResponseWriter) int {
 	defer client.CloseIdleConnections()
 
-	// Add language to language API, would get status 204 if not
+	// Add language to language API, would get status 204 if not. Add /all to countries API, would get status 404 if not.
 	if url == LanguageApi {
 		url = url + "/en"
+	} else if url == CurrentRestCountriesApi {
+		url = url + "/all"
 	}
 
 	response, err := client.Get(url)

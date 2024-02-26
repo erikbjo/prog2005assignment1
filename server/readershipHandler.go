@@ -55,7 +55,6 @@ func handleReadershipGetRequest(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Invalid limit specified. Please specify a positive integer.", http.StatusBadRequest)
 			return
 		}
-		log.Println("Limit: " + strconv.Itoa(limit))
 	}
 
 	// Get authors and books from bookCountHandler

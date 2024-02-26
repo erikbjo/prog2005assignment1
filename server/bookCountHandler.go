@@ -61,7 +61,7 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
-		mp = recursiveGutendexRequest(w, mp)
+		mp = rebuildFullGutendexResult(w, mp)
 
 		output := prettyPrintJSON(w, mp)
 
@@ -98,7 +98,10 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func recursiveGutendexRequest(w http.ResponseWriter, mp GutendexResult) GutendexResult {
+/*
+Make recursive requests to Gutendex API. Returns GutendexResult.
+*/
+func rebuildFullGutendexResult(w http.ResponseWriter, mp GutendexResult) GutendexResult {
 	for mp.Next != "" {
 		_, err := url.ParseRequestURI(mp.Next)
 		if err != nil {
@@ -126,7 +129,7 @@ func recursiveGutendexRequest(w http.ResponseWriter, mp GutendexResult) Gutendex
 		mp.Next = newMp.Next
 		mp.Previous = newMp.Previous
 
-		log.Println("Current count: " + strconv.Itoa(len(mp.Results)))
+		// log.Println("Current count: " + strconv.Itoa(len(mp.Results)))
 	}
 
 	return mp
@@ -244,11 +247,14 @@ func makeGutendexRequest(w http.ResponseWriter, r *http.Request, languageQuery s
 	return res
 }
 
+/*
+Get authors and books from Gutendex API. Takes two-letter language code as parameter. Returns unique authors and book count.
+*/
 func GetAuthorsAndBooks(w http.ResponseWriter, twoLetterLanguageCode string) (int, int) {
 	res := makeGutendexRequest(w, nil, twoLetterLanguageCode)
 	mp := decodeJSON(w, res)
 
-	mp = recursiveGutendexRequest(w, mp)
+	mp = rebuildFullGutendexResult(w, mp)
 
 	output := prettyPrintJSON(w, mp)
 
