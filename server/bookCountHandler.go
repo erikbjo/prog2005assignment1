@@ -67,6 +67,12 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 
 		booksOfLanguage := mp.Count
 		fraction := float64(booksOfLanguage) / float64(totalBooks)
+
+		// Make fraction 5 decimal places
+		// Works by multiplying by 100000, converting to int, this will truncate the decimal places, then dividing by 100000
+		// This will make the fraction 5 decimal places
+		fraction = float64(int(fraction*100000)) / 100000
+
 		uniqueAuthors := getUniqueAuthors(w, output)
 
 		bookCount := BookCount{
