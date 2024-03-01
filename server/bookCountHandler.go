@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 // BookCountHandler
@@ -55,6 +56,35 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 	// Array of responses, one for each language. These will be used to rebuild the full result from the "next" field.
 	responses := make([]*http.Response, len(languageQueries))
 	for i, language := range languageQueries {
+		// Check if twoLetterLanguageCode is valid, i.e. two letters
+		if len(language) != 2 || !unicode.IsLetter(rune(language[0])) || !unicode.IsLetter(rune(language[1])) {
+			log.Println("Invalid request. Invalid language code.")
+			http.Error(w, "Invalid request. At least one invalid language code.", http.StatusBadRequest)
+			return
+		}
+
+		// Make request to Language2Country API, if 204 is returned, the language is not valid
+		res, err := client.Get(LanguageApi + "/" + language)
+		if err != nil {
+			log.Println("Error when checking Language2Country API:", err.Error())
+			http.Error(w, "Error when checking external API", http.StatusServiceUnavailable)
+			return
+		}
+		if res.StatusCode == 204 {
+			// log.Println("Invalid language code: " + language)
+
+			// Not returning an error here, as the user might have specified multiple languages, and some of them might be valid
+			// Returning an error would stop the entire request, which is not necessary
+			// http.Error(w, "Encountered at least one invalid language code.", http.StatusBadRequest)
+
+			// Remove invalid language from languageQueries
+			languageQueries = append(languageQueries[:i], languageQueries[i+1:]...)
+			// Decrement i to account for the removed element
+			i--
+
+			continue
+		}
+
 		responses[i] = makeGutendexRequest(w, r, language)
 	}
 
@@ -67,6 +97,11 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 
 	// Iterate over responses and decode JSON
 	for i, res := range responses {
+		// If response is nil, continue, this happens if the language is invalid
+		if res == nil {
+			continue
+		}
+
 		decodedGutendexResponse := decodeJSON(w, res)
 
 		// If no books found for language, create an artificial bookCount struct and continue
