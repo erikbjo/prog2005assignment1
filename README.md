@@ -1,8 +1,14 @@
 # Cloud Assignment 1
 
+[TOC]
+
 ## Introduction
 
-Bla bla
+<p>
+In this assignment, I developed a REST web application in Go that provides the client with information about books 
+available in a given language or languages based on the Gutenberg library. The service further determines the number 
+of potential readers (as a second endpoint) presumed to be able to read books in that language.
+</p>
 
 ## Endpoints
 
@@ -14,13 +20,18 @@ Bla bla
 All parameters can be combined in any way, _if a list of parameters is required, there needs to be atleast one
 parameter_.
 
+---
+
 ### GET /librarystats/v1/bookcount
 
 #### Description
 
+<p>
 Returns the number of books in the library for each requested language.
 Also returns the number of authors that have written books in the language.
 Finally, returns the fraction of books written in the language compared to the total number of books in the library.
+The language codes are defined by the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes">ISO 639-1 standard</a>.
+</p>
 
 #### Request
 
@@ -28,16 +39,22 @@ Finally, returns the fraction of books written in the language compared to the t
 /librarystats/v1/bookcount/?language={:two_letter_language_code+}/
 ```
 
-Example request:
+Example requests:
 
 ```
 /librarystats/v1/bookcount/?language=no,sv
+/librarystats/v1/bookcount/?language=no
 ```
 
-Needs to be a list of two letter language codes, separated by a `,`, with at least one language code.
-The language codes are defined by the ISO 639-1 standard.
+<p>
+Needs to be a list of two letter language codes, separated by a comma, with at least one language code.
+The language codes are defined by the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes"> ISO 639-1 standard</a>.
+</p>
 
 #### Response
+
+* Content-Type: `application/json`
+* Status: `200 OK` if successful, relevant error code otherwise.
 
 ```json
 [
@@ -52,6 +69,12 @@ The language codes are defined by the ISO 639-1 standard.
     "books": 230,
     "authors": 139,
     "fraction": 0.00315
+  },
+  {
+    "language": "ra",
+    "books": 0,
+    "authors": 0,
+    "fraction": 0
   }
 ]
 ```
@@ -64,7 +87,8 @@ The language codes are defined by the ISO 639-1 standard.
 
 <p>
 Returns the number of potential readers for a given language, based on the population of the countries where the language is spoken.
-The language codes are defined by the ISO 639-1 standard. Also returns the country name and the ISO 3166-1 alpha-2 code for the country.
+The language codes are defined by the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes">ISO 639-1 standard</a>. 
+Also returns the country name and the ISO 3166-1 alpha-2 code for the country.
 </p>
 <p>
 The number of books and unique authors for the language is also returned. This is based on the books in the Gutenberg library.
@@ -83,12 +107,18 @@ Example request:
 
 ```
 /librarystats/v1/readership/no?limit=3
+/librarystats/v1/readership/sv
 ```
 
-The language code is defined by the ISO 639-1 standard. The limit parameter is optional, and can be any positive
+<p>
+The language code is defined by the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes">ISO 639-1 standard</a>. The limit parameter is optional, and can be any positive
 integer.
+</p>
 
 #### Response
+
+* Content-Type: `application/json`
+* Status: `200 OK` if successful, relevant error code otherwise.
 
 ```json
 [
@@ -122,13 +152,20 @@ integer.
 
 #### Description
 
+<p>
 Returns the status of the used services, and total uptime.
+</p>
 
 #### Request
 
+<p>
 No request parameters.
+</p>
 
 #### Response
+
+* Content-Type: `application/json`
+* Status: `200 OK` if successful, relevant error code otherwise.
 
 ```json
 {
