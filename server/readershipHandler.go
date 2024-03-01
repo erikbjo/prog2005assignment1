@@ -34,6 +34,7 @@ func handleReadershipGetRequest(w http.ResponseWriter, r *http.Request) {
 	cutQuery := strings.TrimPrefix(r.URL.Path, ReadershipPath)
 
 	// cutQuery should now be {two_letter_language_code}/... OR {two_letter_language_code}...
+	// This approach also handles repeating slashes, e.g. /readership/no/no/en/en
 	// Split by / and take first part
 	twoLetterLanguageCode := strings.Split(cutQuery, "/")[0]
 
@@ -41,6 +42,19 @@ func handleReadershipGetRequest(w http.ResponseWriter, r *http.Request) {
 	if len(twoLetterLanguageCode) != 2 || !unicode.IsLetter(rune(twoLetterLanguageCode[0])) || !unicode.IsLetter(rune(twoLetterLanguageCode[1])) {
 		log.Println("Invalid request. Invalid language code.")
 		http.Error(w, "Invalid request. Invalid language code.", http.StatusBadRequest)
+		return
+	}
+
+	// Check if the language code is accepted by Language2Countries API, if not, return 400
+	res, err := client.Get(LanguageApi + "/" + twoLetterLanguageCode)
+	if err != nil {
+		log.Println("Error when checking Language2Country API:", err.Error())
+		http.Error(w, "Error when checking external API", http.StatusServiceUnavailable)
+		return
+	}
+	if res.StatusCode == 204 {
+		log.Println("Language code not found in Language2Countries API." + twoLetterLanguageCode)
+		http.Error(w, "Language code is not a valid language code.", http.StatusBadRequest)
 		return
 	}
 
