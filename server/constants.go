@@ -2,8 +2,8 @@ package server
 
 // Default path for the server
 const DefaultPath = "/"
-const VERSION = "v1"
-const LibraryStatsPath = "/librarystats/" + VERSION
+const Version = "v1"
+const LibraryStatsPath = "/librarystats/" + Version
 const BookCountPath = LibraryStatsPath + "/bookcount/"
 const ReadershipPath = LibraryStatsPath + "/readership/"
 const StatusPath = LibraryStatsPath + "/status/"
@@ -18,5 +18,5 @@ const GutendexApiRemote = "https://gutendex.com/books/"
 const RestCountriesApiRemote = "https://restcountries.com/v3.1/"
 
 // Constants for the current API in use, because Christopher's API is not always available
-const CurrentGutendexApi = GutendexApiRemote
-const CurrentRestCountriesApi = RestCountriesApiRemote
+const CurrentGutendexApi = GutendexApi
+const CurrentRestCountriesApi = RestCountriesApi

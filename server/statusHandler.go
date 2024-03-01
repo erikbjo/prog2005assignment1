@@ -35,11 +35,11 @@ func handleStatusGetRequest(w http.ResponseWriter, r *http.Request) {
 		GutendexAPI:  getStatusCode(CurrentGutendexApi, w),
 		LanguageAPI:  getStatusCode(LanguageApi, w),
 		CountriesAPI: getStatusCode(CurrentRestCountriesApi, w),
-		Version:      VERSION,
+		Version:      Version,
 		Uptime:       math.Round(time.Since(StartTime).Seconds()),
 	}
 
-	marshaledStatus, err := json.MarshalIndent(currentStatus, "", "    ")
+	marshaledStatus, err := json.MarshalIndent(currentStatus, "", "\t")
 	if err != nil {
 		log.Println("Error during JSON encoding: " + err.Error())
 		http.Error(w, "Error during JSON encoding.", http.StatusInternalServerError)

@@ -9,6 +9,7 @@ import (
 
 var StartTime time.Time
 
+// Shared client
 var client = &http.Client{
 	Timeout: 3 * time.Second,
 }
