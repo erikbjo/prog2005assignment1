@@ -1,4 +1,4 @@
-package server
+package shared
 
 // Default path for the server
 const DefaultPath = "/"

@@ -1,4 +1,4 @@
-package server
+package shared
 
 // Status struct, used to return status information about the server
 type Status struct {

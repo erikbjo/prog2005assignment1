@@ -1,12 +1,19 @@
-package server
+package handlers
 
 import (
 	"encoding/json"
 	"log"
 	"math"
 	"net/http"
+	"prog2005assignment1/server/shared"
 	"time"
 )
+
+var client = &http.Client{
+	Timeout: 3 * time.Second,
+}
+
+var StartTime = time.Now()
 
 // StatusHandler
 /*
@@ -31,11 +38,11 @@ Handle GET request for /status
 func handleStatusGetRequest(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("content-type", "application/json")
 
-	currentStatus := Status{
-		GutendexAPI:  getStatusCode(CurrentGutendexApi, w),
-		LanguageAPI:  getStatusCode(LanguageApi, w),
-		CountriesAPI: getStatusCode(CurrentRestCountriesApi, w),
-		Version:      Version,
+	currentStatus := shared.Status{
+		GutendexAPI:  getStatusCode(shared.CurrentGutendexApi, w),
+		LanguageAPI:  getStatusCode(shared.LanguageApi, w),
+		CountriesAPI: getStatusCode(shared.CurrentRestCountriesApi, w),
+		Version:      shared.Version,
 		Uptime:       math.Round(time.Since(StartTime).Seconds()),
 	}
 
@@ -60,9 +67,9 @@ func getStatusCode(url string, w http.ResponseWriter) int {
 	defer client.CloseIdleConnections()
 
 	// Add language to language API, would get status 204 if not. Add /all to countries API, would get status 404 if not.
-	if url == LanguageApi {
+	if url == shared.LanguageApi {
 		url = url + "/en"
-	} else if url == CurrentRestCountriesApi {
+	} else if url == shared.CurrentRestCountriesApi {
 		url = url + "/all"
 	}
 

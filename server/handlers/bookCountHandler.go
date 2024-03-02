@@ -1,13 +1,14 @@
-package server
+package handlers
 
 import (
 	"encoding/json"
 	"log"
 	"net/http"
 	"net/url"
+	"prog2005assignment1/server/shared"
+	"prog2005assignment1/server/util"
 	"strconv"
 	"strings"
-	"unicode"
 )
 
 // BookCountHandler
@@ -54,38 +55,23 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 	languageQueries = removeDuplicates(languageQueries)
 
 	// Array of responses, one for each language. These will be used to rebuild the full result from the "next" field.
-	responses := make([]*http.Response, len(languageQueries))
-	for i, language := range languageQueries {
-		// Check if twoLetterLanguageCode is valid, i.e. two letters
-		if len(language) != 2 || !unicode.IsLetter(rune(language[0])) || !unicode.IsLetter(rune(language[1])) {
-			log.Println("Invalid request. Invalid language code.")
-			http.Error(w, "Invalid request. At least one invalid language code.", http.StatusBadRequest)
-			return
+	var validResponses []*http.Response
+	var validLanguages []string
+
+	for _, language := range languageQueries {
+		if util.LanguageCodeChecker(language, w) {
+			// Store valid responses and languages
+			validResponses = append(validResponses, makeGutendexRequest(w, r, language))
+			validLanguages = append(validLanguages, language)
+		} else {
+			// Language is invalid, do nothing
+			// EXCEPT: If there's only one language, and it's invalid, return error
+			if len(languageQueries) == 1 {
+				http.Error(w, "Invalid language code. Please specify one or more valid two letter language codes.",
+					http.StatusBadRequest)
+				return
+			}
 		}
-
-		// Make request to Language2Country API, if 204 is returned, the language is not valid
-		res, err := client.Get(LanguageApi + "/" + language)
-		if err != nil {
-			log.Println("Error when checking Language2Country API:", err.Error())
-			http.Error(w, "Error when checking external API", http.StatusServiceUnavailable)
-			return
-		}
-		if res.StatusCode == 204 {
-			// log.Println("Invalid language code: " + language)
-
-			// Not returning an error here, as the user might have specified multiple languages, and some of them might be valid
-			// Returning an error would stop the entire request, which is not necessary
-			// http.Error(w, "Encountered at least one invalid language code.", http.StatusBadRequest)
-
-			// Remove invalid language from languageQueries
-			languageQueries = append(languageQueries[:i], languageQueries[i+1:]...)
-			// Decrement i to account for the removed element
-			i--
-
-			continue
-		}
-
-		responses[i] = makeGutendexRequest(w, r, language)
 	}
 
 	// Get total book count from Gutendex API, used to calculate fraction.
@@ -93,10 +79,10 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 	totalBooks := getTotalBookCount(w)
 
 	// Array of bookCount structs
-	bookCounts := make([]BookCount, len(languageQueries))
+	bookCounts := make([]shared.BookCount, len(validResponses))
 
 	// Iterate over responses and decode JSON
-	for i, res := range responses {
+	for i, res := range validResponses {
 		// If response is nil, continue, this happens if the language is invalid
 		if res == nil {
 			continue
@@ -107,10 +93,8 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 		// If no books found for language, create an artificial bookCount struct and continue
 		// This is done to simplify the code, as calculating the fraction and unique authors would be a waste
 		if decodedGutendexResponse.Count == 0 {
-			// log.Println("No books found for language: " + languageQueries[i])
-
-			bookCount := BookCount{
-				Language: languageQueries[i],
+			bookCount := shared.BookCount{
+				Language: validLanguages[i],
 				Books:    0,
 				Authors:  0,
 				Fraction: 0,
@@ -135,8 +119,8 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 
 		uniqueAuthors := getUniqueAuthors(w, output)
 
-		bookCount := BookCount{
-			Language: languageQueries[i],
+		bookCount := shared.BookCount{
+			Language: validLanguages[i],
 			Books:    booksOfLanguage,
 			Authors:  uniqueAuthors,
 			Fraction: fraction,
@@ -194,7 +178,7 @@ func removeDuplicates(queries []string) []string {
 /*
 Rebuild full Gutendex result from multiple requests
 */
-func rebuildFullGutendexResult(w http.ResponseWriter, mp GutendexResult) GutendexResult {
+func rebuildFullGutendexResult(w http.ResponseWriter, mp shared.GutendexResult) shared.GutendexResult {
 	for mp.Next != "" {
 		// Check if URL is valid
 		_, err := url.ParseRequestURI(mp.Next)
@@ -214,7 +198,7 @@ func rebuildFullGutendexResult(w http.ResponseWriter, mp GutendexResult) Gutende
 
 		// Decode JSON
 		decoder := json.NewDecoder(res.Body)
-		var newMp GutendexResult
+		var newMp shared.GutendexResult
 		err = decoder.Decode(&newMp)
 		if err != nil {
 			log.Println("Error during decoding: " + err.Error())
@@ -237,8 +221,8 @@ func rebuildFullGutendexResult(w http.ResponseWriter, mp GutendexResult) Gutende
 /*
 Remove empty elements from bookCounts, i.e. elements with language="", books=0, authors=0, fraction=0
 */
-func removeEmptyElements(counts []BookCount) []BookCount {
-	var newCounts []BookCount
+func removeEmptyElements(counts []shared.BookCount) []shared.BookCount {
+	var newCounts []shared.BookCount
 	for _, count := range counts {
 		if count.Language == "" && count.Books == 0 && count.Authors == 0 && count.Fraction == 0 {
 			continue
@@ -252,9 +236,9 @@ func removeEmptyElements(counts []BookCount) []BookCount {
 /*
 Decode JSON and return as GutendexResult
 */
-func decodeJSON(w http.ResponseWriter, res *http.Response) GutendexResult {
+func decodeJSON(w http.ResponseWriter, res *http.Response) shared.GutendexResult {
 	decoder := json.NewDecoder(res.Body)
-	mp := GutendexResult{}
+	mp := shared.GutendexResult{}
 
 	err := decoder.Decode(&mp)
 	if err != nil {
@@ -268,7 +252,7 @@ func decodeJSON(w http.ResponseWriter, res *http.Response) GutendexResult {
 /*
 Pretty print JSON and return as byte array
 */
-func prettyPrintJSON(w http.ResponseWriter, mp GutendexResult) []byte {
+func prettyPrintJSON(w http.ResponseWriter, mp shared.GutendexResult) []byte {
 	output, err := json.MarshalIndent(mp, "", "\t")
 	if err != nil {
 		log.Println("Error during pretty printing: " + err.Error())
@@ -283,7 +267,7 @@ func prettyPrintJSON(w http.ResponseWriter, mp GutendexResult) []byte {
 Get total book count from Gutendex API
 */
 func getTotalBookCount(w http.ResponseWriter) int {
-	r, err1 := http.NewRequest(http.MethodGet, CurrentGutendexApi, nil)
+	r, err1 := http.NewRequest(http.MethodGet, shared.CurrentGutendexApi, nil)
 	if err1 != nil {
 		log.Println("Error in creating request:", err1.Error())
 		http.Error(w, "Error in creating request", http.StatusInternalServerError)
@@ -306,7 +290,7 @@ func getTotalBookCount(w http.ResponseWriter) int {
 Get unique authors from Gutendex API. Authors are distinguished by name and birth and death year.
 */
 func getUniqueAuthors(w http.ResponseWriter, output []byte) int {
-	var result GutendexResult
+	var result shared.GutendexResult
 	err := json.Unmarshal(output, &result)
 	if err != nil {
 		log.Println("Error during JSON decoding: " + err.Error())
@@ -335,7 +319,7 @@ Make request to Gutendex API. Takes languageQuery as parameter, which is a two-l
 */
 func makeGutendexRequest(w http.ResponseWriter, r *http.Request, languageQuery string) *http.Response {
 	// Create new request
-	r, err1 := http.NewRequest(http.MethodGet, CurrentGutendexApi+"?languages="+languageQuery, nil)
+	r, err1 := http.NewRequest(http.MethodGet, shared.CurrentGutendexApi+"?languages="+languageQuery, nil)
 	if err1 != nil {
 		log.Println("Error in creating request:", err1.Error())
 		http.Error(w, "Error in creating request", http.StatusInternalServerError)

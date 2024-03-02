@@ -1,12 +1,13 @@
-package server
+package handlers
 
 import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"prog2005assignment1/server/shared"
+	"prog2005assignment1/server/util"
 	"strconv"
 	"strings"
-	"unicode"
 )
 
 // ReadershipHandler
@@ -31,30 +32,15 @@ func handleReadershipGetRequest(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("content-type", "application/json")
 
 	// Get two_letter_language_code from request, cut off .../readership/
-	cutQuery := strings.TrimPrefix(r.URL.Path, ReadershipPath)
+	cutQuery := strings.TrimPrefix(r.URL.Path, shared.ReadershipPath)
 
 	// cutQuery should now be {two_letter_language_code}/... OR {two_letter_language_code}...
 	// This approach also handles repeating slashes, e.g. /readership/no/no/en/en
 	// Split by / and take first part
 	twoLetterLanguageCode := strings.Split(cutQuery, "/")[0]
 
-	// Check if twoLetterLanguageCode is valid, i.e. two letters
-	if len(twoLetterLanguageCode) != 2 || !unicode.IsLetter(rune(twoLetterLanguageCode[0])) || !unicode.IsLetter(rune(twoLetterLanguageCode[1])) {
-		log.Println("Invalid request. Invalid language code.")
-		http.Error(w, "Invalid request. Invalid language code.", http.StatusBadRequest)
-		return
-	}
-
-	// Check if the language code is accepted by Language2Countries API, if not, return 400
-	res, err := client.Get(LanguageApi + "/" + twoLetterLanguageCode)
-	if err != nil {
-		log.Println("Error when checking Language2Country API:", err.Error())
-		http.Error(w, "Error when checking external API", http.StatusServiceUnavailable)
-		return
-	}
-	if res.StatusCode == 204 {
-		log.Println("Language code not found in Language2Countries API." + twoLetterLanguageCode)
-		http.Error(w, "Language code is not a valid language code.", http.StatusBadRequest)
+	if !util.LanguageCodeChecker(twoLetterLanguageCode, w) {
+		http.Error(w, "Invalid language code. Please specify a valid two letter language code.", http.StatusBadRequest)
 		return
 	}
 
@@ -89,7 +75,7 @@ func handleReadershipGetRequest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Loop through countries and get readership (inhabitants) from API
-	var readerships []Readership
+	var readerships []shared.Readership
 	for i, country := range countries {
 		// If limit is set and reached, break
 		if limit > 0 && i >= limit {
@@ -97,7 +83,7 @@ func handleReadershipGetRequest(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Create new readership struct
-		newReadership := Readership{
+		newReadership := shared.Readership{
 			Country:    country.OfficialName,
 			Isocode:    country.Iso31661Alpha2,
 			Books:      books,
@@ -129,18 +115,18 @@ func handleReadershipGetRequest(w http.ResponseWriter, r *http.Request) {
 /*
 Get population of a country from RestCountries API
 */
-func getReadership(w http.ResponseWriter, country Country) int {
+func getReadership(w http.ResponseWriter, country shared.Country) int {
 	defer client.CloseIdleConnections()
 
 	// Get response from RestCountries API
-	response, err := client.Get(CurrentRestCountriesApi + "/alpha/" + country.Iso31661Alpha3)
+	response, err := client.Get(shared.CurrentRestCountriesApi + "/alpha/" + country.Iso31661Alpha3)
 	if err != nil {
 		log.Println("Error when trying to get readership: " + err.Error())
 		http.Error(w, "Error when trying to get readership", http.StatusInternalServerError)
 	}
 
 	// Decode JSON, could return multiple countries, but since we use alpha3 code, in reality we only get one
-	var countries []CountryFromRestCountries
+	var countries []shared.CountryFromRestCountries
 	err = json.NewDecoder(response.Body).Decode(&countries)
 	if err != nil {
 		log.Println("Error when decoding JSON: " + err.Error())
@@ -154,11 +140,11 @@ func getReadership(w http.ResponseWriter, country Country) int {
 /*
 Get all countries that uses a given language by two letter language code
 */
-func getCountriesWithLanguageWithTwoLetterLanguageCode(w http.ResponseWriter, code string) []Country {
+func getCountriesWithLanguageWithTwoLetterLanguageCode(w http.ResponseWriter, code string) []shared.Country {
 	defer client.CloseIdleConnections()
 
 	// Get response from Language2Countries API
-	response, err := client.Get(LanguageApi + code)
+	response, err := client.Get(shared.LanguageApi + code)
 	if err != nil {
 		log.Println("Error when trying to get countries with language: " + err.Error())
 		http.Error(w, "Error when trying to get countries with language", http.StatusServiceUnavailable)
@@ -166,7 +152,7 @@ func getCountriesWithLanguageWithTwoLetterLanguageCode(w http.ResponseWriter, co
 	}
 
 	// Decode JSON
-	var countries []Country
+	var countries []shared.Country
 	err = json.NewDecoder(response.Body).Decode(&countries)
 	if err != nil {
 		log.Println("Error when decoding JSON: " + err.Error())

@@ -4,15 +4,9 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
+	"prog2005assignment1/server/handlers"
+	"prog2005assignment1/server/shared"
 )
-
-var StartTime time.Time
-
-// Shared client
-var client = &http.Client{
-	Timeout: 3 * time.Second,
-}
 
 // Start
 /*
@@ -26,13 +20,10 @@ func Start() {
 	}
 
 	// Set up handler endpoints
-	http.HandleFunc(DefaultPath, DefaultHandler)
-	http.HandleFunc(StatusPath, StatusHandler)
-	http.HandleFunc(ReadershipPath, ReadershipHandler)
-	http.HandleFunc(BookCountPath, BookCountHandler)
-
-	// Set start time
-	StartTime = time.Now()
+	http.HandleFunc(shared.DefaultPath, handlers.DefaultHandler)
+	http.HandleFunc(shared.StatusPath, handlers.StatusHandler)
+	http.HandleFunc(shared.ReadershipPath, handlers.ReadershipHandler)
+	http.HandleFunc(shared.BookCountPath, handlers.BookCountHandler)
 
 	// Start server
 	log.Println("Starting server on port " + port + " ...")
