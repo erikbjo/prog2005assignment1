@@ -74,6 +74,13 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	// If all languages are invalid, return error
+	if len(validResponses) == 0 {
+		http.Error(w, "Invalid language code. Please specify one or more valid two letter language codes.",
+			http.StatusBadRequest)
+		return
+	}
+
 	// Get total book count from Gutendex API, used to calculate fraction.
 	// Since the library is always adding new books, the total book count is not constant.
 	totalBooks := getTotalBookCount(w)
@@ -105,7 +112,13 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
-		decodedGutendexResponse = rebuildFullGutendexResult(w, decodedGutendexResponse)
+		var rebuildError error
+		decodedGutendexResponse, rebuildError = rebuildFullGutendexResult(w, decodedGutendexResponse)
+		if rebuildError != nil {
+			log.Println("Error during rebuilding of full result: " + rebuildError.Error())
+			http.Error(w, "Error during rebuilding of full result", http.StatusInternalServerError)
+			return
+		}
 
 		output := prettyPrintJSON(w, decodedGutendexResponse)
 
@@ -178,22 +191,22 @@ func removeDuplicates(queries []string) []string {
 /*
 Rebuild full Gutendex result from multiple requests
 */
-func rebuildFullGutendexResult(w http.ResponseWriter, mp shared.GutendexResult) shared.GutendexResult {
+func rebuildFullGutendexResult(w http.ResponseWriter, mp shared.GutendexResult) (shared.GutendexResult, error) {
 	for mp.Next != "" {
 		// Check if URL is valid
 		_, err := url.ParseRequestURI(mp.Next)
 		if err != nil {
 			log.Println("Invalid URL:", err.Error())
-			http.Error(w, "Invalid URL", http.StatusInternalServerError)
-			return mp
+			// http.Error(w, "Invalid URL", http.StatusInternalServerError)
+			return mp, err
 		}
 
 		// Make request to next URL
 		res, err := client.Get(mp.Next)
 		if err != nil {
 			log.Println("Error in response:", err.Error())
-			http.Error(w, "Error in response", http.StatusInternalServerError)
-			return mp
+			// http.Error(w, "Error in response", http.StatusInternalServerError)
+			return mp, err
 		}
 
 		// Decode JSON
@@ -202,7 +215,8 @@ func rebuildFullGutendexResult(w http.ResponseWriter, mp shared.GutendexResult) 
 		err = decoder.Decode(&newMp)
 		if err != nil {
 			log.Println("Error during decoding: " + err.Error())
-			http.Error(w, "Error during decoding", http.StatusBadRequest)
+			// http.Error(w, "Error during decoding", http.StatusBadRequest)
+			return mp, err
 		}
 
 		// Append new results to current results
@@ -215,7 +229,7 @@ func rebuildFullGutendexResult(w http.ResponseWriter, mp shared.GutendexResult) 
 		// log.Println("Current count: " + strconv.Itoa(len(mp.Results)))
 	}
 
-	return mp
+	return mp, nil
 }
 
 /*
@@ -341,12 +355,19 @@ func makeGutendexRequest(w http.ResponseWriter, r *http.Request, languageQuery s
 // GetAuthorsAndBooks
 /*
 Get authors and books from Gutendex API. Takes two-letter language code as parameter. Returns unique authors and book count.
+Returns -1, -1 if there's an error.
 */
 func GetAuthorsAndBooks(w http.ResponseWriter, twoLetterLanguageCode string) (int, int) {
 	res := makeGutendexRequest(w, nil, twoLetterLanguageCode)
 	mp := decodeJSON(w, res)
 
-	mp = rebuildFullGutendexResult(w, mp)
+	var err error
+	mp, err = rebuildFullGutendexResult(w, mp)
+	if err != nil {
+		log.Println("Error during rebuilding of full result: " + err.Error())
+		http.Error(w, "Error during rebuilding of full result", http.StatusInternalServerError)
+		return -1, -1
+	}
 
 	output := prettyPrintJSON(w, mp)
 

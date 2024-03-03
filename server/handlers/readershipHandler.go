@@ -61,6 +61,10 @@ func handleReadershipGetRequest(w http.ResponseWriter, r *http.Request) {
 
 	// Get authors and books from bookCountHandler
 	authors, books := GetAuthorsAndBooks(w, twoLetterLanguageCode)
+	if authors == -1 && books == -1 {
+		// Error message already sent
+		return
+	}
 
 	// Get countries with language with two letter language code
 	countries := getCountriesWithLanguageWithTwoLetterLanguageCode(w, twoLetterLanguageCode)
