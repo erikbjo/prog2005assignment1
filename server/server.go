@@ -15,8 +15,8 @@ Start the server on the port specified in the environment variable PORT. If PORT
 func Start() {
 	port := os.Getenv("PORT")
 	if port == "" {
-		log.Println("$PORT has not been set. Default: 8080")
-		port = "8080"
+		log.Println("$PORT has not been set. Default: " + shared.DefaultPort)
+		port = shared.DefaultPort
 	}
 
 	// Set up handler endpoints

@@ -65,12 +65,6 @@ func handleBookCountGetRequest(w http.ResponseWriter, r *http.Request) {
 			validLanguages = append(validLanguages, language)
 		} else {
 			// Language is invalid, do nothing
-			// EXCEPT: If there's only one language, and it's invalid, return error
-			if len(languageQueries) == 1 {
-				http.Error(w, "Invalid language code. Please specify one or more valid two letter language codes.",
-					http.StatusBadRequest)
-				return
-			}
 		}
 	}
 

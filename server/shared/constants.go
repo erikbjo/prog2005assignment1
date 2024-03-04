@@ -2,6 +2,7 @@ package shared
 
 // Default path for the server
 const DefaultPath = "/"
+const DefaultPort = "8080"
 const Version = "v1"
 const LibraryStatsPath = "/librarystats/" + Version
 const BookCountPath = LibraryStatsPath + "/bookcount/"
