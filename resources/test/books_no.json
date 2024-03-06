@@ -1,0 +1,771 @@
+{
+  "count": 21,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 30027,
+      "title": "Sult",
+      "authors": [
+        {
+          "name": "Hamsun, Knut",
+          "birth_year": 1859,
+          "death_year": 1952
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Authors -- Fiction",
+        "Hunger -- Fiction",
+        "Norway -- Fiction",
+        "Starvation -- Fiction",
+        "Urban poor -- Fiction"
+      ],
+      "bookshelves": [
+        "Best Books Ever Listings"
+      ],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/30027.html.images",
+        "text/html; charset=iso-8859-1": "https://www.gutenberg.org/files/30027/30027-h/30027-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/30027.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/30027.kf8.images",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/30027.txt.utf-8",
+        "text/plain; charset=utf-8": "https://www.gutenberg.org/files/30027/30027-0.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/30027.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/30027/pg30027.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/30027/pg30027-h.zip"
+      },
+      "download_count": 141
+    },
+    {
+      "id": 43724,
+      "title": "Markens grøde, Første del",
+      "authors": [
+        {
+          "name": "Hamsun, Knut",
+          "birth_year": 1859,
+          "death_year": 1952
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Norway -- Fiction"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/43724.html.images",
+        "text/html; charset=utf-8": "https://www.gutenberg.org/files/43724/43724-h/43724-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/43724.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/43724.kf8.images",
+        "text/plain; charset=utf-8": "https://www.gutenberg.org/files/43724/43724-0.txt",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/43724/43724-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/43724.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/43724/pg43724.cover.medium.jpg",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/43724.txt.utf-8",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/43724/pg43724-h.zip"
+      },
+      "download_count": 92
+    },
+    {
+      "id": 13041,
+      "title": "Vildanden",
+      "authors": [
+        {
+          "name": "Ibsen, Henrik",
+          "birth_year": 1828,
+          "death_year": 1906
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Norwegian drama"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/13041.html.images",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/13041.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/13041.kf8.images",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/13041/13041-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/13041.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/13041/pg13041.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/13041/pg13041-h.zip",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/13041.txt.utf-8"
+      },
+      "download_count": 75
+    },
+    {
+      "id": 43725,
+      "title": "Markens grøde, Anden del",
+      "authors": [
+        {
+          "name": "Hamsun, Knut",
+          "birth_year": 1859,
+          "death_year": 1952
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Norway -- Fiction"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/43725.html.images",
+        "text/html; charset=utf-8": "https://www.gutenberg.org/files/43725/43725-h/43725-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/43725.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/43725.kf8.images",
+        "text/plain; charset=utf-8": "https://www.gutenberg.org/files/43725/43725-0.txt",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/43725/43725-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/43725.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/43725/pg43725.cover.medium.jpg",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/43725.txt.utf-8",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/43725/pg43725-h.zip"
+      },
+      "download_count": 73
+    },
+    {
+      "id": 56863,
+      "title": "Onkel Toms Hytte",
+      "authors": [
+        {
+          "name": "Stowe, Harriet Beecher",
+          "birth_year": 1811,
+          "death_year": 1896
+        }
+      ],
+      "translators": [
+        {
+          "name": "Flæten, O.",
+          "birth_year": null,
+          "death_year": null
+        }
+      ],
+      "subjects": [
+        "African Americans -- Fiction",
+        "Didactic fiction",
+        "Enslaved persons -- Fiction",
+        "Fugitive slaves -- Fiction",
+        "Master and servant -- Fiction",
+        "Plantation life -- Fiction",
+        "Political fiction",
+        "Slavery -- Fiction",
+        "Southern States -- Fiction",
+        "Uncle Tom (Fictitious character) -- Fiction"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/56863.txt.utf-8",
+        "text/html": "https://www.gutenberg.org/ebooks/56863.html.images",
+        "text/html; charset=utf-8": "https://www.gutenberg.org/files/56863/56863-h/56863-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/56863.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/56863.kf8.images",
+        "text/plain; charset=utf-8": "https://www.gutenberg.org/files/56863/56863-0.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/56863.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/56863/pg56863.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/56863/pg56863-h.zip"
+      },
+      "download_count": 69
+    },
+    {
+      "id": 63200,
+      "title": "Baron von Münchhausens merkværdige reiser og eventyr",
+      "authors": [
+        {
+          "name": "Raspe, Rudolf Erich",
+          "birth_year": 1737,
+          "death_year": 1794
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Humorous stories",
+        "Tall tales",
+        "Voyages and travels -- Fiction",
+        "Voyages, Imaginary -- Fiction"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/63200.txt.utf-8",
+        "text/html": "https://www.gutenberg.org/ebooks/63200.html.images",
+        "text/html; charset=iso-8859-1": "https://www.gutenberg.org/files/63200/63200-h/63200-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/63200.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/63200.kf8.images",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/63200/63200-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/63200.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/63200/pg63200.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/63200/pg63200-h.zip"
+      },
+      "download_count": 58
+    },
+    {
+      "id": 16665,
+      "title": "Catilina",
+      "authors": [
+        {
+          "name": "Ibsen, Henrik",
+          "birth_year": 1828,
+          "death_year": 1906
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Catiline, approximately 108 B.C.-62 B.C. -- Drama"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/16665.html.images",
+        "text/html; charset=iso-8859-1": "https://www.gutenberg.org/files/16665/16665-h/16665-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/16665.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/16665.kf8.images",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/16665.txt.utf-8",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/16665/16665-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/16665.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/16665/pg16665.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/16665/pg16665-h.zip"
+      },
+      "download_count": 57
+    },
+    {
+      "id": 14686,
+      "title": "Hærmændene på Helgeland: Med anmerkninger av stud. mag. Birger Knudsen",
+      "authors": [
+        {
+          "name": "Ibsen, Henrik",
+          "birth_year": 1828,
+          "death_year": 1906
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Norwegian drama"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/14686.html.images",
+        "text/html; charset=iso-8859-1": "https://www.gutenberg.org/files/14686/14686-h/14686-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/14686.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/14686.kf8.images",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/14686.txt.utf-8",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/14686/14686-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/14686.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/14686/pg14686.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/14686/pg14686-h.zip"
+      },
+      "download_count": 54
+    },
+    {
+      "id": 34239,
+      "title": "Buffalo Bill: Helten Fra Prærien",
+      "authors": [
+        {
+          "name": "Nielsen, Roger",
+          "birth_year": null,
+          "death_year": null
+        }
+      ],
+      "translators": [
+        {
+          "name": "Wendelbo, Per",
+          "birth_year": null,
+          "death_year": null
+        }
+      ],
+      "subjects": [
+        "Buffalo Bill, 1846-1917"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/34239.html.images",
+        "text/html; charset=utf-8": "https://www.gutenberg.org/files/34239/34239-h/34239-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/34239.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/34239.kf8.images",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/34239.txt.utf-8",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/34239/34239-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/34239.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/34239/pg34239.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/34239/pg34239-h.zip"
+      },
+      "download_count": 50
+    },
+    {
+      "id": 43788,
+      "title": "Vrakets hemmelighet",
+      "authors": [
+        {
+          "name": "Stevenson, Robert Louis",
+          "birth_year": 1850,
+          "death_year": 1894
+        },
+        {
+          "name": "Osbourne, Lloyd",
+          "birth_year": 1868,
+          "death_year": 1947
+        }
+      ],
+      "translators": [
+        {
+          "name": "Harbitz, Alf",
+          "birth_year": 1880,
+          "death_year": 1964
+        }
+      ],
+      "subjects": [
+        "Avarice -- Fiction",
+        "Shipwrecks -- Fiction",
+        "Treasure troves -- Fiction"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/43788.html.images",
+        "text/html; charset=utf-8": "https://www.gutenberg.org/files/43788/43788-h/43788-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/43788.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/43788.kf8.images",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/43788/43788-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/43788.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/43788/pg43788.cover.medium.jpg",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/43788.txt.utf-8",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/43788/pg43788-h.zip"
+      },
+      "download_count": 44
+    },
+    {
+      "id": 59635,
+      "title": "Norsk literaturhistorie for gymnasiet, lærerskoler og høiere folkeskoler: Med et tillæg om de forskjellige literaturarter",
+      "authors": [
+        {
+          "name": "Broch, Chr. (Christian)",
+          "birth_year": 1855,
+          "death_year": 1889
+        },
+        {
+          "name": "Seip, M.",
+          "birth_year": null,
+          "death_year": null
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Norwegian literature -- History and criticism"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/59635.txt.utf-8",
+        "text/html": "https://www.gutenberg.org/ebooks/59635.html.images",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/59635.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/59635.kf8.images",
+        "text/plain; charset=utf-8": "https://www.gutenberg.org/files/59635/59635-0.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/59635.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/59635/pg59635.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/59635/pg59635-h.zip"
+      },
+      "download_count": 42
+    },
+    {
+      "id": 32245,
+      "title": "Jenny: Roman",
+      "authors": [
+        {
+          "name": "Undset, Sigrid",
+          "birth_year": 1882,
+          "death_year": 1949
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Adultery -- Fiction",
+        "Artists -- Fiction",
+        "Illegitimate children -- Fiction",
+        "Painters -- Fiction",
+        "Young women -- Fiction"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/32245.html.images",
+        "text/html; charset=iso-8859-1": "https://www.gutenberg.org/files/32245/32245-h/32245-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/32245.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/32245.kf8.images",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/32245.txt.utf-8",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/32245/32245-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/32245.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/32245/pg32245.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/32245/pg32245-h.zip"
+      },
+      "download_count": 41
+    },
+    {
+      "id": 34062,
+      "title": "Luftseilerens Skat",
+      "authors": [
+        {
+          "name": "Grahame-White, Claude",
+          "birth_year": 1879,
+          "death_year": 1959
+        },
+        {
+          "name": "Harper, Harry",
+          "birth_year": 1880,
+          "death_year": 1960
+        }
+      ],
+      "translators": [
+        {
+          "name": "Lassen, Helene",
+          "birth_year": null,
+          "death_year": null
+        }
+      ],
+      "subjects": [
+        "Adventure stories",
+        "Aeronautics -- Juvenile fiction",
+        "Airplanes -- Juvenile fiction",
+        "Treasure troves -- Juvenile fiction",
+        "Voyages around the world -- Juvenile fiction"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/34062.html.images",
+        "text/html; charset=utf-8": "https://www.gutenberg.org/files/34062/34062-h/34062-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/34062.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/34062.kf8.images",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/34062.txt.utf-8",
+        "text/plain; charset=utf-8": "https://www.gutenberg.org/files/34062/34062-0.txt",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/34062/34062-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/34062.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/34062/pg34062.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/34062/pg34062-h.zip"
+      },
+      "download_count": 40
+    },
+    {
+      "id": 53978,
+      "title": "Veien til Skjønhed, Sundhed og et Langt Liv",
+      "authors": [
+        {
+          "name": "Laynard, Boyd",
+          "birth_year": null,
+          "death_year": null
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Beauty, Personal",
+        "Diet -- Health aspects",
+        "Health -- Popular works",
+        "Hygiene",
+        "Longevity"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/53978.txt.utf-8",
+        "text/html": "https://www.gutenberg.org/ebooks/53978.html.images",
+        "text/html; charset=utf-8": "https://www.gutenberg.org/files/53978/53978-h/53978-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/53978.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/53978.kf8.images",
+        "text/plain; charset=utf-8": "https://www.gutenberg.org/files/53978/53978-0.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/53978.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/53978/pg53978.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/53978/pg53978-h.zip"
+      },
+      "download_count": 39
+    },
+    {
+      "id": 15748,
+      "title": "Kærlighedens Komedie",
+      "authors": [
+        {
+          "name": "Ibsen, Henrik",
+          "birth_year": 1828,
+          "death_year": 1906
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Norwegian drama"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/15748.html.images",
+        "text/html; charset=iso-8859-1": "https://www.gutenberg.org/files/15748/15748-h/15748-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/15748.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/15748.kf8.images",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/15748.txt.utf-8",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/15748/15748-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/15748.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/15748/pg15748.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/15748/pg15748-h.zip"
+      },
+      "download_count": 36
+    },
+    {
+      "id": 20550,
+      "title": "Presten som ikke kunde brukes",
+      "authors": [
+        {
+          "name": "Nordberg, Carl E. (Carl Edin)",
+          "birth_year": 1880,
+          "death_year": 1926
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Norwegian Americans -- Fiction"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/20550.html.images",
+        "text/html; charset=utf-8": "https://www.gutenberg.org/files/20550/20550-h/20550-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/20550.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/20550.kf8.images",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/20550.txt.utf-8",
+        "text/plain; charset=utf-8": "https://www.gutenberg.org/files/20550/20550-0.txt",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/20550/20550-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/20550.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/20550/pg20550.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/20550/pg20550-h.zip"
+      },
+      "download_count": 35
+    },
+    {
+      "id": 15669,
+      "title": "Fru Inger til Østråt",
+      "authors": [
+        {
+          "name": "Ibsen, Henrik",
+          "birth_year": 1828,
+          "death_year": 1906
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Inger Ottesdater, -1555 -- Drama"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/15669.html.images",
+        "text/html; charset=iso-8859-1": "https://www.gutenberg.org/files/15669/15669-h/15669-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/15669.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/15669.kf8.images",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/15669.txt.utf-8",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/15669/15669-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/15669.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/15669/pg15669.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/15669/pg15669-h.zip"
+      },
+      "download_count": 32
+    },
+    {
+      "id": 15291,
+      "title": "Gildet på Solhaug",
+      "authors": [
+        {
+          "name": "Ibsen, Henrik",
+          "birth_year": 1828,
+          "death_year": 1906
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Norwegian drama"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/15291.html.images",
+        "text/html; charset=iso-8859-1": "https://www.gutenberg.org/files/15291/15291-h/15291-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/15291.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/15291.kf8.images",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/15291.txt.utf-8",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/15291/15291-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/15291.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/15291/pg15291.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/15291/pg15291-h.zip"
+      },
+      "download_count": 29
+    },
+    {
+      "id": 34183,
+      "title": "S/S \"Styggen\"",
+      "authors": [
+        {
+          "name": "Jessen, Burchard",
+          "birth_year": 1871,
+          "death_year": 1925
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Fiction"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/34183.html.images",
+        "text/html; charset=iso-8859-1": "https://www.gutenberg.org/files/34183/34183-h/34183-h.htm",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/34183.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/34183.kf8.images",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/34183.txt.utf-8",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/34183/34183-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/34183.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/34183/pg34183.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/34183/pg34183-h.zip"
+      },
+      "download_count": 27
+    },
+    {
+      "id": 11293,
+      "title": "Jan van Huysums Blomsterstykke: En Buket",
+      "authors": [
+        {
+          "name": "Wergeland, Henrik Arnold",
+          "birth_year": 1808,
+          "death_year": 1845
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Huysum, Jan van, 1682-1749 -- Poetry"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/11293.html.images",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/11293.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/11293.kf8.images",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/11293/11293-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/11293.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/11293/pg11293.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/11293/pg11293-h.zip",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/11293.txt.utf-8"
+      },
+      "download_count": 21
+    },
+    {
+      "id": 12844,
+      "title": "Den engelske Lods",
+      "authors": [
+        {
+          "name": "Wergeland, Henrik Arnold",
+          "birth_year": 1808,
+          "death_year": 1845
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Norwegian poetry -- 19th century"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "no"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/12844.html.images",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/12844.epub3.images",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/12844.kf8.images",
+        "text/plain; charset=iso-8859-1": "https://www.gutenberg.org/files/12844/12844-8.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/12844.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/12844/pg12844.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/cache/epub/12844/pg12844-h.zip",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/12844.txt.utf-8"
+      },
+      "download_count": 21
+    }
+  ]
+}

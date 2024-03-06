@@ -1,0 +1,41 @@
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 43007,
+      "title": "Tribute to Michael Hart",
+      "authors": [
+        {
+          "name": "AlHydar, Majid",
+          "birth_year": null,
+          "death_year": null
+        }
+      ],
+      "translators": [],
+      "subjects": [
+        "Hart, Michael, 1947-2011",
+        "Project Gutenberg"
+      ],
+      "bookshelves": [],
+      "languages": [
+        "ar"
+      ],
+      "copyright": false,
+      "media_type": "Text",
+      "formats": {
+        "text/html": "https://www.gutenberg.org/ebooks/43007.html.images",
+        "application/epub+zip": "https://www.gutenberg.org/ebooks/43007.epub3.images",
+        "text/rtf": "https://www.gutenberg.org/files/43007/43007-r.rtf",
+        "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/43007.kf8.images",
+        "text/plain; charset=utf-8": "https://www.gutenberg.org/files/43007/43007-0.txt",
+        "application/rdf+xml": "https://www.gutenberg.org/ebooks/43007.rdf",
+        "image/jpeg": "https://www.gutenberg.org/cache/epub/43007/pg43007.cover.medium.jpg",
+        "application/octet-stream": "https://www.gutenberg.org/files/43007/43007-r.zip",
+        "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/43007.txt.utf-8"
+      },
+      "download_count": 1589
+    }
+  ]
+}
