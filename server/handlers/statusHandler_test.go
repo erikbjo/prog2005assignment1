@@ -9,16 +9,15 @@ import (
 	"testing"
 )
 
-// Local URL
-const URL = "http://localhost:" + shared.DefaultPort + shared.StatusPath
-
 func TestStatusHandler(t *testing.T) {
+	statusURL := "http://localhost:" + shared.DefaultPort + shared.StatusPath
+
 	// Test the status handler
 	// Expect a 200 OK response, with a JSON body
 	// The JSON body should contain the status of the Gutendex API, Language2Country API, RestCountries API,
 	// the version of the server and the uptime of the server
 
-	req, err := http.NewRequest("GET", URL, nil)
+	req, err := http.NewRequest("GET", statusURL, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
