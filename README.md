@@ -181,11 +181,42 @@ No request parameters.
 
 ## Comments and notes
 
-### Testing
-
 ### Deployment
 
+The application is deployed on Render, and can be accessed [here](https://prog2005assignment1.onrender.com/). 
+The deployment has not been used a lot, and is now "spun down" due to inactivity. It can take up to 50 seconds to
+spin up the first time you access it. This, in addition to changes taking time to deploy, made me use a local deployment
+for most of the development.
+
 ### Deviations from the specification
+
+#### Bookcount
+
+When using the bookcount endpoint, you are "allowed" to use any language code, even if it is not a valid ISO 639-1 code.
+This is dealt with gracefully, and the response will ignore the invalid language code. Example:
+
+```http request
+GET /librarystats/v1/bookcount/?language=norge,erik,no
+```
+```json
+[
+  {
+    "language": "no",
+    "books": 21,
+    "authors": 16,
+    "fraction": 0.00028
+  }
+]
+```
+
+This will however not happen if there's only invalid language codes. Example:
+
+```http request
+GET /librarystats/v1/bookcount/?language=erik
+```
+```
+Invalid language code. Please specify one or more valid two letter language codes.
+```
 
 ### Known issues
 
@@ -203,6 +234,19 @@ When using the readership endpoint, the country name is not always returned corr
 
 ### Future improvements
 
+#### Testing
+
+The testing is not as thorough as I wanted it to be. The problem is that the structure of the code is not very testable:
+It relies heavily on external services, and the responses from these services are not always predictable. 
+This makes it hard, if not impossible, to write good unit tests. One way to solve this is to use a mocking library,
+but I did not have time to implement this. This is something I would like to do in the future. The code also 
+relies heavily on constants, I tried to use different go:build tags to make it easier to test, but I did not have time to
+implement this.
+
+The tests that are implemented are mostly sanity checks, and not very thorough. This is something I would like to improve
+in the future. I would also like to implement more integration tests, to make sure that the different parts of the
+application work together as expected.
+
 ## Usage
 
 ### How to run
@@ -214,7 +258,7 @@ go run cmd/main.go
 ### How to test
 
 ```bash
-
+go test ./...
 ```
 
 ### How to build
@@ -227,4 +271,4 @@ then run the binary.
 
 ## Contact
 
-For more information, please contact the author at [email](mailto:erbj@stud.ntnu.no).
+For more information, please contact me on [email](mailto:erbj@stud.ntnu.no).
